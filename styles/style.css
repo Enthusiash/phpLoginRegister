@@ -98,6 +98,9 @@ body {
 }
 
 .right-links {
+    display: flex;
+    flex-direction: row;
+    column-gap: 20px;
     padding: 0 10px;
 }
 

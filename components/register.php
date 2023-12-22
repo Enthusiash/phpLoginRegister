@@ -36,7 +36,7 @@
                     echo "<div class='message'>
                             <p>Registered Successfully!</p>
                           </div> <br>";
-                    echo "<a href='index.php'><button class='btn'>Login now.</button>";
+                    echo "<a href='login.php'><button class='btn'>Login now.</button>";
                 }
             } else {
 

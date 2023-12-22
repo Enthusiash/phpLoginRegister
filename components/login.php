@@ -13,34 +13,31 @@
 <body>
     <div class="main-container">
         <div class="box form-box">
+            
             <?php
-
             include("../php/config.php");
             if (isset($_POST['submit'])){
-                $email = mysqli_real_escape_string($con, $_POST['email']);
+                $username = mysqli_real_escape_string($con, $_POST['username']); // Corrected field name
                 $password = mysqli_real_escape_string($con, $_POST['password']);
 
-                $result = mysqli_query($con, "SELECT * FROM users WHERE Email='$email' AND Password='$password'") or die("Select Error!");
-                $row = mysqli_fecth_assoc($result);
+                $result = mysqli_query($con, "SELECT * FROM users WHERE Username='$username' AND Password='$password'") or die("Select Error!"); // Corrected field name
+                $row = mysqli_fetch_assoc($result);
 
-            if (is_array($row) && !empty($row)){
-                $_SESSION['valid'] = $row['Email'];
-                $_SESSION['username'] = $row['Username'];
-                $_SESSION['fullname'] = $row['Fullname'];
-                $_SESSION['id'] = $row['Id'];
+                if (is_array($row) && !empty($row)){
+                    $_SESSION['valid'] = $row['Email'];
+                    $_SESSION['username'] = $row['Username'];
+                    $_SESSION['fullname'] = $row['Fullname'];
+                    $_SESSION['id'] = $row['Id'];
+                } else {
+                    echo "<div class='message'>
+                          <p>Wrong username or password!</p>
+                          </div> <br>";
                 }
-            else {
-                echo "<div class='message'>
-                      <p>Wrong username or password!</p>
-                      </div> <br>";
-                echo "<a href='index.php'><button class='btn'>Go back.</button>";
-            }
-            if (isset($_SESSION['valid'])) {
-                header("Location: home.php");
-            }
-            else {
-            }
 
+                if (isset($_SESSION['valid'])) {
+                    header("Location: home.php");
+                }
+            }
             ?>
             
             <header>Login</header>
@@ -51,7 +48,7 @@
                     </div>
                     <div class="field-input">
                         <label for="password">Password: </label>
-                        <input type="text" name="password" id="password" required>
+                        <input type="password" name="password" id="password" required> <!-- Corrected input type -->
                     </div>
                     <div class="field-input">
                         <input type="submit" class="btn" name="submit" value="Login" required>
@@ -61,7 +58,6 @@
                     </div>
                 </form>
         </div>
-        <?php } ?>
     </div>
 </body>
 </html>
